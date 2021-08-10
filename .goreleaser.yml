@@ -1,9 +1,11 @@
+dist: release
 builds:
   -
-    binary: release/luet-{{ .Tag }}-{{ .Os }}-{{ .Arch }}
+    binary: luet-{{ .Tag }}-{{ .Os }}-{{ .Arch }}
     env:
       - CGO_ENABLED=0
     ldflags:
+      - -s -w
       - -X "github.com/mudler/luet/cmd.BuildTime={{ time "2006-01-02 15:04:05 MST" }}"
       - -X "github.com/mudler/luet/cmd.BuildCommit={{ .FullCommit }}"
     goos:
@@ -16,5 +18,8 @@ builds:
     goarm:
       - 6
       - 7
+    no_unique_dist_dir: true  # dump all the binaries under the dist dir directly instead of subdirs for each
+checksum:
+  name_template: "{{ .ProjectName }}_checksums.txt"
 archives:
   - format: binary # this removes the tar of the archives, leaving the binaries alone
