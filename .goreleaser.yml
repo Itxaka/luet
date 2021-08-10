@@ -35,8 +35,9 @@ changelog:
       - '^Merge pull request'
 release:
   header: |
-    cOS-toolkit is an experimental framework to build, ship, release and maintain Linux Derivatives as Container images.
+    Luet is a multi-platform Package Manager based off from containers - it uses Docker (and others) to build packages.
 
-    By default cOS comes with an immutable-rootfs setup. cOS supports to upgrade specifying directly docker image references and with standard upgrade channel.
+    It has zero dependencies and it is well suitable for "from scratch" environments.
+    It can also version entire rootfs and enables delivery of OTA-alike updates, making it a perfect fit for the Edge computing era and IoT embedded device
 
     In this release:
