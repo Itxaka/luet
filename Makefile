@@ -55,8 +55,8 @@ clean:
 deps:
 	go env
 	# Installing dependencies...
-	GO111MODULE=off go get golang.org/x/lint/golint
 	GO111MODULE=off go get github.com/goreleaser/goreleaser
+	GO111MODULE=off go get golang.org/x/lint/golint
 	GO111MODULE=off go get golang.org/x/tools/cmd/cover
 	GO111MODULE=off go get github.com/onsi/ginkgo/ginkgo
 	GO111MODULE=off go get github.com/onsi/gomega/...
@@ -89,10 +89,10 @@ test-docker:
 				bash -c "make test"
 
 multiarch-build:
-	goreleaser build --snapshot --rm-dist
+	goreleaser build --rm-dist
 
 multiarch-build-small:
-	@$(MAKE) LDFLAGS+="-s -w" multiarch-build
-	for file in $(ROOT_DIR)/dist/**/release/* ; do \
+	@$(MAKE) multiarch-build
+	for file in $(ROOT_DIR)/release/* ; do \
 		upx --brute -1 $${file} ; \
 	done

@@ -1,9 +1,16 @@
+#dist: release
+source:
+  enabled: true
+  name_template: '{{ .ProjectName }}-{{ .Tag }}-source'
+checksum:
+  name_template: '{{ .ProjectName }}-{{ .Tag }}-checksums.txt'
 builds:
   -
-    binary: release/luet-{{ .Tag }}-{{ .Os }}-{{ .Arch }}
+    binary: luet-{{ .Tag }}-{{ .Os }}-{{ .Arch }}
     env:
       - CGO_ENABLED=0
     ldflags:
+      - -s -w
       - -X "github.com/mudler/luet/cmd.BuildTime={{ time "2006-01-02 15:04:05 MST" }}"
       - -X "github.com/mudler/luet/cmd.BuildCommit={{ .FullCommit }}"
     goos:
@@ -18,3 +25,17 @@ builds:
       - 7
 archives:
   - format: binary # this removes the tar of the archives, leaving the binaries alone
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^Merge pull request'
+release:
+  header: |
+    cOS-toolkit is an experimental framework to build, ship, release and maintain Linux Derivatives as Container images.
+
+    By default cOS comes with an immutable-rootfs setup. cOS supports to upgrade specifying directly docker image references and with standard upgrade channel.
+
+    In this release:
