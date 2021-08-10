@@ -19,10 +19,8 @@ jobs:
           go-version: ${{ matrix.go_version }}
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Install deps
-        run: |
-            sudo apt-get install -y upx
-            sudo curl -fSL "https://github.com/genuinetools/img/releases/download/v0.5.11/img-linux-amd64" -o "/usr/bin/img"
-            sudo chmod a+x "/usr/bin/img"
-      - name: Build
-        run: sudo -E env "PATH=$PATH" make multiarch-build-small
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          version: latest
+          args: release --rm-dist
