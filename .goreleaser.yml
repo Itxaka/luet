@@ -9,7 +9,7 @@ checksum:
   name_template: '{{ .ProjectName }}-{{ .Tag }}-checksums.txt'
 builds:
   -
-    binary: luet-{{ .Tag }}-{{ .Os }}-{{ .Arch }}
+    #binary: luet-{{ .Tag }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}
     env:
       - CGO_ENABLED=0
     ldflags:
@@ -26,9 +26,9 @@ builds:
     goarm:
       - 6
       - 7
-    no_unique_dist_dir: true  # do not create subdirs per goos+goarch
 archives:
   - format: binary # this removes the tar of the archives, leaving the binaries alone
+    name_template: luet-{{ .Tag }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}
 changelog:
   sort: asc
   filters:

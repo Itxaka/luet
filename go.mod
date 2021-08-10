@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/DataDog/zstd v1.4.4 // indirect
+	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect
 	github.com/Microsoft/go-winio v0.4.16 // indirect
 	github.com/Sabayon/pkgs-checker v0.8.1
@@ -11,7 +12,6 @@ require (
 	github.com/asaskevich/govalidator v0.0.0-20200907205600-7a23bdc65eef
 	github.com/asdine/storm v0.0.0-20190418133842-e0f77eada154
 	github.com/briandowns/spinner v1.12.1-0.20201220203425-e201aaea0a31
-	github.com/campoy/unique v0.0.0-20180121183637-88950e537e7e // indirect
 	github.com/cavaliercoder/grab v1.0.1-0.20201108051000-98a5bfe305ec
 	github.com/containerd/containerd v1.4.1-0.20201117152358-0edc412565dc
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
@@ -21,15 +21,16 @@ require (
 	github.com/docker/docker v20.10.0-beta1.0.20201110211921-af34b94a78a1+incompatible
 	github.com/docker/go-units v0.4.0
 	github.com/ecooper/qlearning v0.0.0-20160612200101-3075011a69fd
+	github.com/fatih/color v1.12.0 // indirect
 	github.com/genuinetools/img v0.5.11
 	github.com/ghodss/yaml v1.0.0
+	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/gofrs/flock v0.8.0 // indirect
+	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
+	github.com/google/go-cmp v0.5.6 // indirect
 	github.com/google/go-containerregistry v0.2.1
-	github.com/google/go-github/v25 v25.0.1 // indirect
 	github.com/google/renameio v1.0.0
-	github.com/goreleaser/chglog v0.1.2 // indirect
-	github.com/goreleaser/goreleaser v0.174.2 // indirect
-	github.com/goreleaser/nfpm v0.11.0 // indirect
+	github.com/google/uuid v1.2.0 // indirect
 	github.com/hashicorp/go-multierror v1.0.0
 	github.com/hashicorp/go-version v1.2.1
 	github.com/huandu/xstrings v1.3.2 // indirect
@@ -37,20 +38,15 @@ require (
 	github.com/jedib0t/go-pretty v4.3.0+incompatible
 	github.com/jedib0t/go-pretty/v6 v6.0.5
 	github.com/jinzhu/copier v0.0.0-20180308034124-7e38e58719c3
-	github.com/juju/ansiterm v0.0.0-20210706145210-9283cdf370b5 // indirect
-	github.com/kamilsk/retry/v4 v4.0.0 // indirect
 	github.com/klauspost/compress v1.12.2
 	github.com/klauspost/pgzip v1.2.1
 	github.com/knqyf263/go-deb-version v0.0.0-20190517075300-09fca494f03d
 	github.com/kyokomi/emoji v2.1.0+incompatible
 	github.com/logrusorgru/aurora v0.0.0-20190417123914-21d75270181e
-	github.com/lunixbochs/vtclean v1.0.0 // indirect
 	github.com/marcsauter/single v0.0.0-20181104081128-f8bf46f26ec0
 	github.com/mattn/go-isatty v0.0.13 // indirect
-	github.com/mattn/go-zglob v0.0.0-20180803001819-2ea3427bfa53 // indirect
-	github.com/miniscruff/changie v0.7.0 // indirect
+	github.com/mitchellh/copystructure v1.1.2 // indirect
 	github.com/mitchellh/hashstructure/v2 v2.0.1
-	github.com/mitchellh/reflectwalk v1.0.1 // indirect
 	github.com/moby/buildkit v0.7.2
 	github.com/moby/sys/mount v0.2.0 // indirect
 	github.com/mudler/cobra-extensions v0.0.0-20200612154940-31a47105fe3d
@@ -72,9 +68,14 @@ require (
 	go.etcd.io/bbolt v1.3.5
 	go.uber.org/multierr v1.6.0
 	go.uber.org/zap v1.17.0
+	golang.org/x/crypto v0.0.0-20210506145944-38f3c27a63bf // indirect
 	golang.org/x/mod v0.4.2
+	golang.org/x/net v0.0.0-20210505214959-0714010a04ed // indirect
+	golang.org/x/oauth2 v0.0.0-20210628180205-a41e5a781914 // indirect
 	golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e // indirect
+	golang.org/x/time v0.0.0-20210220033141-f8bda1e9f3ba // indirect
 	google.golang.org/grpc v1.38.0
+	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v2 v2.4.0
 	helm.sh/helm/v3 v3.3.4
 
