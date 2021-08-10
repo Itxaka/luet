@@ -55,8 +55,9 @@ clean:
 deps:
 	go env
 	# Installing dependencies...
+	# v0.155 is the latest to support go 1.15
+	GO111MODULE=on go get github.com/goreleaser/goreleaser@v0.155.2
 	GO111MODULE=off go get golang.org/x/lint/golint
-	GO111MODULE=off go get github.com/goreleaser/goreleaser
 	GO111MODULE=off go get golang.org/x/tools/cmd/cover
 	GO111MODULE=off go get github.com/onsi/ginkgo/ginkgo
 	GO111MODULE=off go get github.com/onsi/gomega/...
@@ -92,7 +93,7 @@ multiarch-build:
 	goreleaser build --snapshot --rm-dist
 
 multiarch-build-small:
-	@$(MAKE) LDFLAGS+="-s -w" multiarch-build
+	@$(MAKE) multiarch-build
 	for file in $(ROOT_DIR)/dist/**/release/* ; do \
 		upx --brute -1 $${file} ; \
 	done

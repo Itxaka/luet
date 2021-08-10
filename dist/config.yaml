@@ -1,0 +1,80 @@
+project_name: luet
+release:
+  github:
+    owner: Itxaka
+    name: luet
+  name_template: '{{.Tag}}'
+milestones:
+- repo:
+    owner: Itxaka
+    name: luet
+  name_template: '{{ .Tag }}'
+scoop:
+  name: luet
+  commit_author:
+    name: goreleaserbot
+    email: goreleaser@carlosbecker.com
+  commit_msg_template: Scoop update for {{ .ProjectName }} version {{ .Tag }}
+builds:
+- id: luet
+  goos:
+  - linux
+  goarch:
+  - amd64
+  - arm
+  - arm64
+  - "386"
+  goarm:
+  - "6"
+  - "7"
+  targets:
+  - linux_amd64
+  - linux_arm_6
+  - linux_arm_7
+  - linux_arm64
+  - linux_386
+  dir: .
+  main: .
+  ldflags:
+  - -s -w
+  - -X "github.com/mudler/luet/cmd.BuildTime={{ time "2006-01-02 15:04:05 MST" }}"
+  - -X "github.com/mudler/luet/cmd.BuildCommit={{ .FullCommit }}"
+  binary: release/luet-{{ .Tag }}-{{ .Os }}-{{ .Arch }}
+  env:
+  - CGO_ENABLED=0
+  lang: go
+  gobinary: go
+archives:
+- id: default
+  builds:
+  - luet
+  name_template: '{{ .Binary }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{
+    .Arm }}{{ end }}{{ if .Mips }}_{{ .Mips }}{{ end }}'
+  format: binary
+  files:
+  - licence*
+  - LICENCE*
+  - license*
+  - LICENSE*
+  - readme*
+  - README*
+  - changelog*
+  - CHANGELOG*
+  allow_different_binary_count: false
+snapshot:
+  name_template: '{{ .Tag }}-SNAPSHOT-{{ .ShortCommit }}'
+checksum:
+  name_template: '{{ .ProjectName }}_{{ .Version }}_checksums.txt'
+  algorithm: sha256
+dist: dist
+env_files:
+  github_token: ~/.config/goreleaser/github_token
+  gitlab_token: ~/.config/goreleaser/gitlab_token
+  gitea_token: ~/.config/goreleaser/gitea_token
+source:
+  name_template: '{{ .ProjectName }}-{{ .Version }}'
+  format: tar.gz
+github_urls:
+  download: https://github.com
+gitlab_urls:
+  download: https://gitlab.com
