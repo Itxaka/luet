@@ -4,6 +4,7 @@ builds:
     env:
       - CGO_ENABLED=0
     ldflags:
+      - -s -w
       - -X "github.com/mudler/luet/cmd.BuildTime={{ time "2006-01-02 15:04:05 MST" }}"
       - -X "github.com/mudler/luet/cmd.BuildCommit={{ .FullCommit }}"
     goos:
@@ -16,5 +17,6 @@ builds:
     goarm:
       - 6
       - 7
+    no_unique_dist_dir: true
 archives:
   - format: binary # this removes the tar of the archives, leaving the binaries alone
