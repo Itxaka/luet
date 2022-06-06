@@ -27,13 +27,13 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://luet.io/docs/concepts/packages/specfile/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2022-02-04T19:55:03+01:00" /><meta property="og:site_name" content="Luet" />
+<meta property="article:modified_time" content="2022-05-26T13:09:37+00:00" /><meta property="og:site_name" content="Luet" />
 
 <meta itemprop="name" content="Specfile">
 <meta itemprop="description" content="Luet specfile syntax
 ">
-<meta itemprop="dateModified" content="2022-02-04T19:55:03+01:00" />
-<meta itemprop="wordCount" content="2333">
+<meta itemprop="dateModified" content="2022-05-26T13:09:37+00:00" />
+<meta itemprop="wordCount" content="2434">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Specfile"/>
 <meta name="twitter:description" content="Luet specfile syntax
@@ -146,7 +146,7 @@ if (!doNotTrack) {
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.2d5033d97ec0001a71adb66bf2d6599d.json"
+  data-offline-search-index-json-src="/offline-search-index.408c7cf1c85393f6caef1f2ba0bf93af.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -168,7 +168,7 @@ if (!doNotTrack) {
   aria-label="Search this site…"
   autocomplete="off"
   
-  data-offline-search-index-json-src="/offline-search-index.2d5033d97ec0001a71adb66bf2d6599d.json"
+  data-offline-search-index-json-src="/offline-search-index.408c7cf1c85393f6caef1f2ba0bf93af.json"
   data-offline-search-base-href="/"
   data-offline-search-max-results="10"
 >
@@ -287,6 +287,7 @@ if (!doNotTrack) {
         <li><a href="#requires_final_images"><code>requires_final_images</code></a></li>
         <li><a href="#step"><code>step</code></a></li>
         <li><a href="#unpack"><code>unpack</code></a></li>
+        <li><a href="#subpackages"><code>subpackages</code></a></li>
       </ul>
     </li>
     <li><a href="#rutime-specs">Rutime specs</a>
@@ -479,7 +480,7 @@ The directory must represent exactly how the files will be ultimately installed 
 <h4 id="difference-between-requires-and-requires-with-requires_final_images-true">Difference between <code>requires</code> and <code>requires</code> with <code>requires_final_images: true</code></h4>
 <p><code>requires</code> generates a graph from all the <code>images</code> of the specfile referenced inside the list. This means it builds a chain of images that are used to build the packages, e.g.: <code>packageA(image: busybox) -&gt; packageB (requires: A) -&gt; packageC (requires: C)</code>. The container which is running your build then <strong>inherits</strong> it&rsquo;s parents from a chain of order resolution, provided by the SAT solver.</p>
 <p>When specifying <code>requires_final_images: true</code> luet builds an artifact for each of the packages listed from their compilation specs and it will later <em>squash</em> them together in a new container image which is then used in the build process to create an artifact.</p>
-<p>The key difference is about <em>where</em> your build is going to run from. By specifying <code>requires_final_images</code> it will be constructed a new image with the content of each package - while if setting it to false, it will order the images appropriately and link them together with the Dockerfile <code>FROM</code> field. That allows to reuse the same images used to build the packages in the require section - or - create a new one from the result of each package compilation.</p>
+<p>The key difference is about <em>where</em> your build is going to run from. By specifying <code>requires_final_images</code> it will be constructed a new image with the content of each package specified and its dependencies - while if setting it to false, it will order the images appropriately and link them together with the Dockerfile <code>FROM</code> field. That allows to reuse the same images used to build the packages in the require section - or - create a new one from the result of each package compilation.</p>
 <h2 id="keywords">Keywords</h2>
 <p>Here is a list of the full keyword refereces for the <code>build.yaml</code> file.</p>
 <h3 id="conflicts"><code>conflicts</code></h3>
@@ -603,7 +604,7 @@ The directory must represent exactly how the files will be ultimately installed 
 <h3 id="requires_final_images"><code>requires_final_images</code></h3>
 <p><em>since luet&gt;=0.17.0</em></p>
 <p>(optional) A boolean flag which instruct luet to use the final images in the <code>requires</code> field.</p>
-<p>By setting <code>requires_final_images: true</code> in the compilation spec, packages in the <code>requires</code> section will be first compiled, and afterwards the final packages are squashed together in a new image that will be used during build.</p>
+<p>By setting <code>requires_final_images: true</code> in the compilation spec, packages in the <code>requires</code> section and its dependencies will be fetched if available or compiled, and afterwards the result is squashed together in a new image that will be used as a source of the build process of the package.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#204a87;font-weight:bold">requires</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline"></span>- <span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#34;foo&#34;</span><span style="color:#f8f8f8;text-decoration:underline">
 </span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">category</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#34;bar&#34;</span><span style="color:#f8f8f8;text-decoration:underline">
@@ -624,6 +625,24 @@ The directory must represent exactly how the files will be ultimately installed 
 <p>(optional) Boolean flag. It indicates to use the unpacking strategy while building a package</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#204a87;font-weight:bold">unpack</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#204a87;font-weight:bold">true</span><span style="color:#f8f8f8;text-decoration:underline">
 </span></code></pre></div><p>It indicates that the package content <strong>is</strong> the whole container content.</p>
+<h3 id="subpackages"><code>subpackages</code></h3>
+<p><em>since luet&gt;=0.32.0</em></p>
+<p>(optional) A list of packages to create with the result of the current package definition.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#204a87;font-weight:bold">subpackages</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span>- <span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#34;foo&#34;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">category</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#34;bar&#34;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">version</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#34;1.0&#34;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">includes</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> 
+</span><span style="color:#f8f8f8;text-decoration:underline">  </span>- <span style="color:#000">...</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">excludes</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">  </span>- <span style="color:#000">...</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline"></span>- <span style="color:#204a87;font-weight:bold">name</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#34;baz&#34;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">category</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#34;bar&#34;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span><span style="color:#f8f8f8;text-decoration:underline">  </span><span style="color:#204a87;font-weight:bold">version</span><span style="color:#000;font-weight:bold">:</span><span style="color:#f8f8f8;text-decoration:underline"> </span><span style="color:#4e9a06">&#34;1.0&#34;</span><span style="color:#f8f8f8;text-decoration:underline">
+</span></code></pre></div><p>After generating the main package, <code>luet</code> will create split packages from the resulting one from the list.</p>
+<p>Every subpackage stanza supports <code>excludes</code> and <code>includes</code> to selectively exclude and include files in every resulting package.</p>
+<p>Note, subpackages support is available for collection, standard packages and templated packages.</p>
+<p>See <a href="/docs/docs/concepts/packages">Package concepts</a> for more information on how to represent a package in a Luet tree.</p>
 <h2 id="rutime-specs">Rutime specs</h2>
 <p>Runtime specification are denoted in a <code>definition.yaml</code> or a <code>collection.yaml</code> sibiling file. It identifies the package and the runtime contraints attached to it.</p>
 <p><em>definition.yaml</em>:</p>
@@ -826,7 +845,7 @@ The directory must represent exactly how the files will be ultimately installed 
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified February 4, 2022: <a href="https://github.com/mudler/luet/commit/fe504e9802f301795fbe36bddd508deff9a4705f">:notebook: docs: Update repository section (fe504e9)</a>
+  Last modified May 26, 2022: <a href="https://github.com/mudler/luet/commit/264bf53fe7ab9980f68326ea39c720ecb6e21903">:art: Accept types.Logger in WithLogger (264bf53)</a>
 </div>
 
 </div>
